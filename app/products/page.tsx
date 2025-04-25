@@ -13,9 +13,6 @@ export default function ProductsPage() {
       <p className="text-gray-600 mb-1">
         Browse, search, and filter our product collection.
       </p>
-      <p className="text-sm text-blue-600 mb-6">
-        Data is fetched directly from the LaravelPoint.com API as per assessment requirements.
-      </p>
       <ProductList />
     </div>
   );
