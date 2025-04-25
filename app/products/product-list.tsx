@@ -33,14 +33,14 @@ function ProductList() {
   }, [initializeSearch]);
 
   // Check if filters are applied
-  const hasFilters = !!searchParams.search || searchParams.sort_by !== 'name' || searchParams.order !== 'desc';
+  const hasFilters = !!searchParams.search || searchParams.sort_by !== 'id' || searchParams.order !== 'desc';
 
   // Function to clear all filters
   const handleClearAllFilters = useCallback(() => {
     // Reset search
     handleSearch("");
     // Reset sort to defaults
-    handleSort("name", "desc");
+    handleSort("id", "desc");
     // Reset to page 1
     handlePageChange(1);
   }, [handleSearch, handleSort, handlePageChange]);

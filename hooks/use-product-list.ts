@@ -3,65 +3,19 @@
 import { useState, useCallback, useRef, useMemo } from "react";
 import useSWR from "swr";
 import { ProductListResponse, SearchParams, SortColumn, SortOrder } from "../types";
-
-// Direct API URL
-const API_URL = "https://captainbinary.com/api/ProductList";
-
-// Fetcher function for SWR
-const fetcher = async (url: string | null) => {
-  if (!url) return null;
-  
-  const response = await fetch(url, {
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-  });
-  
-  if (!response.ok) {
-    throw new Error(`API error: ${response.status} ${response.statusText}`);
-  }
-  
-  return response.json() as Promise<ProductListResponse>;
-};
-
-// Build URL with search parameters
-const buildUrl = (params: SearchParams | null) => {
-  if (params === null) return null;
-  
-  const searchParams = new URLSearchParams();
-  
-  if (params.search) {
-    searchParams.append("search", params.search);
-  }
-  
-  if (params.sort_by) {
-    searchParams.append("sort_by", params.sort_by);
-  }
-  
-  if (params.order) {
-    searchParams.append("order", params.order);
-  }
-  
-  if (params.page) {
-    searchParams.append("page", params.page.toString());
-  }
-  
-  const queryString = searchParams.toString();
-  return queryString ? `${API_URL}?${queryString}` : API_URL;
-};
+import { fetchProducts, buildProductsUrl } from "@/lib/api";
 
 export function useProductList() {
   const hasInitiatedSearch = useRef(false);
   const [searchParams, setSearchParams] = useState<SearchParams | null>(null);
   
-  // Create a memoized URL
-  const url = useMemo(() => buildUrl(searchParams), [searchParams]);
+  // Create a memoized URL using the utility function
+  const url = useMemo(() => buildProductsUrl(searchParams), [searchParams]);
   
-  // Fetch data using SWR
+  // Fetch data using SWR with our API fetcher
   const { data, error, isLoading, mutate } = useSWR<ProductListResponse | null>(
     url,
-    fetcher,
+    fetchProducts,
     {
       revalidateOnFocus: false,
       dedupingInterval: 10000,
@@ -92,7 +46,7 @@ export function useProductList() {
     if (!hasInitiatedSearch.current) {
       setSearchParams({ 
         page: 1,
-        sort_by: 'name' as SortColumn,
+        sort_by: 'id' as SortColumn,
         order: 'desc' as SortOrder
       });
       hasInitiatedSearch.current = true;

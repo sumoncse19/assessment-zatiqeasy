@@ -31,6 +31,7 @@ export interface ProductListResponse {
 
 // Sort options
 export type SortColumn = 
+  | "id"
   | "name"
   | "buying_price"
   | "selling_price"

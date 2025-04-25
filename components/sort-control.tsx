@@ -11,6 +11,7 @@ interface SortControlProps {
 
 // Valid columns for sorting
 const SORT_COLUMNS: Array<{ value: SortColumn; label: string }> = [
+  { value: "id", label: "ID" },
   { value: "name", label: "Name" },
   { value: "buying_price", label: "Buying Price" },
   { value: "selling_price", label: "Selling Price" },
@@ -21,8 +22,8 @@ const SORT_COLUMNS: Array<{ value: SortColumn; label: string }> = [
 ];
 
 // Default sort options
-const DEFAULT_COLUMN: SortColumn = "name";
-const DEFAULT_ORDER: SortOrder = "asc";
+const DEFAULT_COLUMN: SortColumn = "id";
+const DEFAULT_ORDER: SortOrder = "desc";
 
 export default function SortControl({
   initialColumn = DEFAULT_COLUMN,
@@ -43,17 +44,21 @@ export default function SortControl({
     const newColumn = e.target.value as SortColumn;
     
     // Update state
-    setSortState(prev => ({
-      ...prev,
-      column: newColumn
-    }));
-    
-    // Only trigger sort if not the initial render
-    if (!isInitialRender.current) {
-      onSort(newColumn, sortState.order);
-    } else {
-      isInitialRender.current = false;
-    }
+    setSortState(prev => {
+      const updatedState = {
+        ...prev,
+        column: newColumn
+      };
+      
+      // Only trigger sort if not the initial render
+      if (!isInitialRender.current) {
+        onSort(newColumn, updatedState.order);
+      } else {
+        isInitialRender.current = false;
+      }
+      
+      return updatedState;
+    });
   };
 
   // Handle order change
@@ -61,17 +66,21 @@ export default function SortControl({
     const newOrder = e.target.value as SortOrder;
     
     // Update state
-    setSortState(prev => ({
-      ...prev,
-      order: newOrder
-    }));
-    
-    // Trigger sort
-    if (!isInitialRender.current) {
-      onSort(sortState.column, newOrder);
-    } else {
-      isInitialRender.current = false;
-    }
+    setSortState(prev => {
+      const updatedState = {
+        ...prev,
+        order: newOrder
+      };
+      
+      // Trigger sort with the new values
+      if (!isInitialRender.current) {
+        onSort(updatedState.column, newOrder);
+      } else {
+        isInitialRender.current = false;
+      }
+      
+      return updatedState;
+    });
   };
 
   // Handle reset to default sort
@@ -93,7 +102,7 @@ export default function SortControl({
   const isSortModified = sortState.column !== DEFAULT_COLUMN || sortState.order !== DEFAULT_ORDER;
 
   return (
-    <div className="flex flex-col sm:flex-row gap-2 items-start sm:items-center">
+    <div className="flex flex-col sm:flex-row gap-2 items-start">
       <label className="font-medium">Sort by:</label>
       <div className="flex flex-col gap-2">
         <div className="flex gap-2">
