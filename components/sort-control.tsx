@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { SortColumn, SortOrder } from "@/types/index";
 
 interface SortControlProps {
@@ -11,6 +11,7 @@ interface SortControlProps {
 
 // Valid columns for sorting
 const SORT_COLUMNS: Array<{ value: SortColumn; label: string }> = [
+  { value: "id", label: "ID" },
   { value: "name", label: "Name" },
   { value: "buying_price", label: "Buying Price" },
   { value: "selling_price", label: "Selling Price" },
@@ -37,6 +38,14 @@ export default function SortControl({
     column: initialColumn,
     order: initialOrder
   });
+
+  // Update state when props change
+  useEffect(() => {
+    setSortState({
+      column: initialColumn,
+      order: initialOrder
+    });
+  }, [initialColumn, initialOrder]);
 
   // Handle column change
   const handleColumnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

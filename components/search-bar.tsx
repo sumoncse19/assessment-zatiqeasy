@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, FormEvent } from "react";
+import { useState, useRef, FormEvent, useEffect } from "react";
 
 interface SearchBarProps {
   initialValue?: string;
@@ -11,6 +11,11 @@ export default function SearchBar({ initialValue = "", onSearch }: SearchBarProp
   const [searchTerm, setSearchTerm] = useState(initialValue);
   const isInitialRender = useRef(true);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Update search term when initialValue prop changes
+  useEffect(() => {
+    setSearchTerm(initialValue);
+  }, [initialValue]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -74,6 +79,18 @@ export default function SearchBar({ initialValue = "", onSearch }: SearchBarProp
         </button>
       </form>
       
+      {searchTerm && (
+        <button
+          type="button"
+          onClick={handleClearFilter}
+          className="mt-2 text-sm text-gray-600 hover:text-gray-900 flex items-center"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          Clear Filter
+        </button>
+      )}
     </div>
   );
 } 

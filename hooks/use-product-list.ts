@@ -53,6 +53,15 @@ export function useProductList() {
     }
   }, []);
   
+  // Reset all filters to default values
+  const resetFilters = useCallback(() => {
+    setSearchParams({ 
+      page: 1,
+      sort_by: 'id' as SortColumn,
+      order: 'desc' as SortOrder
+    });
+  }, []);
+  
   const handleSearch = useCallback((term: string) => {
     if (!hasInitiatedSearch.current) {
       hasInitiatedSearch.current = true;
@@ -99,6 +108,7 @@ export function useProductList() {
     handleSort,
     handlePageChange,
     initializeSearch,
+    resetFilters,
     refresh: mutate
   };
 } 
