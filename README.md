@@ -1,24 +1,100 @@
-# Product List Implementation
+# Product List Implementation with Next.js and TypeScript
 
-This directory contains a product list implementation with search, sorting, and pagination functionality. The implementation uses Next.js and TypeScript, communicating directly with the external API.
+A product list implementation with search, sorting, and pagination functionality. The project uses Next.js and TypeScript, communicating directly with the external API.
 
-## Directory Structure
+## Live Demo
+
+Check out the [live demo](https://assessment-zatiqeasy.vercel.app)
+
+## Features
+
+- **Search Functionality**: Filter products by name with debounced input
+- **Sorting**: Sort by any column (name, buying_price, selling_price, stock, etc.)
+- **Pagination**: Navigate through large result sets
+- **Responsive Design**: Works on all device sizes
+- **Performance Optimized**: Memoization, efficient data fetching, and proper caching
+
+## Project Structure
 
 ```
-app/products/
-├── README.md                 # Documentation
-├── page.tsx                  # Main page component
-├── product-list.tsx         # Main product list container
-├── components/              # UI Components
-│   ├── product-table.tsx    # Table component for displaying products
-│   ├── search-bar.tsx       # Search input component
-│   ├── sort-control.tsx     # Sorting controls component
-│   └── pagination.tsx       # Pagination component
-├── hooks/                   # Custom hooks
-│   └── use-product-list.ts  # Main data fetching and state management hook
-└── types/                   # TypeScript type definitions
-    └── index.ts            # Type definitions for the product list
+/
+├── app/                       # Next.js app directory
+│   └── products/              # Product list page
+│       ├── page.tsx           # Main products page
+│       └── product-list.tsx   # Product list component
+├── components/                # Reusable UI components
+│   ├── pagination.tsx         # Pagination component
+│   ├── product-table.tsx      # Product table component
+│   ├── search-bar.tsx         # Search input component
+│   ├── sort-control.tsx       # Sorting controls component
+│   └── ui/                    # UI components library
+├── hooks/                     # Custom React hooks
+│   └── use-product-list.ts    # Data fetching and state management
+├── types/                     # TypeScript type definitions
+│   └── index.ts               # Types for product list
+├── lib/                       # Utility functions and shared logic
+└── public/                    # Static assets
 ```
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 16.8.0 or later
+- npm, yarn, or pnpm
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/sumoncse19/assessment-zatiqeasy.git
+cd assessment-zatiqeasy
+```
+
+2. Install dependencies:
+
+```bash
+# Using npm
+npm install
+
+# Using yarn
+yarn
+
+# Using pnpm
+pnpm install
+```
+
+3. Start the development server:
+
+```bash
+# Using npm
+npm run dev
+
+# Using yarn
+yarn dev
+
+# Using pnpm
+pnpm dev
+```
+
+4. Open [http://localhost:3000/products](http://localhost:3000/products) in your browser to see the result.
+
+## API Integration
+
+The application connects to the following API:
+
+- Base URL: `https://captainbinary.com/`
+- Endpoint: `https://captainbinary.com/api/ProductList`
+
+### API Parameters
+
+The external API accepts the following query parameters:
+
+- `search`: Search term for filtering products
+- `sort_by`: Column to sort by (name, buying_price, selling_price, stock, brand_name, category_name, status)
+- `order`: Sort order ('asc' or 'desc')
+- `page`: Page number for pagination
 
 ## Implementation Details
 
@@ -42,21 +118,33 @@ app/products/
    - Uses efficient data fetching strategies
    - Implements proper caching with SWR
 
-## Usage
+## Building for Production
 
-To use the product list:
+```bash
+# Using npm
+npm run build
+npm start
 
-1. Navigate to `/products` route
-2. The list will automatically load with default sorting
-3. Use the search bar to filter products
-4. Click column headers to sort
-5. Use pagination controls to navigate between pages
+# Using yarn
+yarn build
+yarn start
 
-## API Parameters
+# Using pnpm
+pnpm build
+pnpm start
+```
 
-The external API accepts the following query parameters:
+## Technologies Used
 
-- `search`: Search term for filtering products
-- `sort_by`: Column to sort by (e.g., 'name', 'price')
-- `order`: Sort order ('asc' or 'desc')
-- `page`: Page number for pagination 
+- [Next.js](https://nextjs.org/) - React framework
+- [TypeScript](https://www.typescriptlang.org/) - Type checking
+- [Tailwind CSS](https://tailwindcss.com/) - Styling
+- [SWR](https://swr.vercel.app/) - Data fetching and caching
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Author
+
+[Md Sumon Meah](https://github.com/sumoncse19) 
