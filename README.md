@@ -40,7 +40,7 @@ Check out the [live demo](https://assessment-zatiqeasy.vercel.app)
 
 ### Prerequisites
 
-- Node.js 16.8.0 or later
+- Node.js 18 or later
 - npm, yarn, or pnpm
 
 ### Installation
@@ -140,10 +140,6 @@ pnpm start
 - [TypeScript](https://www.typescriptlang.org/) - Type checking
 - [Tailwind CSS](https://tailwindcss.com/) - Styling
 - [SWR](https://swr.vercel.app/) - Data fetching and caching
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Author
 

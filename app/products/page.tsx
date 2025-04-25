@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import ProductList from "./product-list";
 
 export const metadata: Metadata = {
-  title: "Product List | LaravelPoint.com API Demo",
-  description: "Browse our collection of products with search, sort, and filter options - Direct integration with LaravelPoint.com API",
+  title: "Product List | CaptainBinary.com API Demo",
+  description: "Browse our collection of products with search, sort, and filter options - Direct integration with CaptainBinary.com API",
 };
 
 export default function ProductsPage() {

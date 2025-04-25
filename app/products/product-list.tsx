@@ -128,7 +128,7 @@ function ProductList() {
       {isLoading && (
         <div className="text-center py-8">
           <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-500 border-r-transparent"></div>
-          <p className="mt-2 text-gray-600">Loading products from LaravelPoint.com API...</p>
+          <p className="mt-2 text-gray-600">Loading products from CaptainBinary.com API...</p>
         </div>
       )}
 
