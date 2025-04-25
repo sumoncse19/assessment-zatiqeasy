@@ -11,7 +11,6 @@ interface SortControlProps {
 
 // Valid columns for sorting
 const SORT_COLUMNS: Array<{ value: SortColumn; label: string }> = [
-  { value: "id", label: "ID" },
   { value: "name", label: "Name" },
   { value: "buying_price", label: "Buying Price" },
   { value: "selling_price", label: "Selling Price" },
